@@ -1,0 +1,24 @@
+;; shadow-cljs configuration
+{:deps true
+
+ :dev-http {8080 "./dist"}
+ :nrepl {:port 8702
+         :init-ns example.core}
+ :compiler-options {:infer-externs      :auto
+                    :output-feature-set :es-next
+                    :source-map         true
+                    :source-map-detail-level :all
+                    :warnings           {:fn-deprecated false}}
+
+ :builds
+ {:plugin
+  {:target :browser
+   :output-dir "dist"
+   :asset-path "."
+   :modules  {:main {:init-fn example.core/-init}}
+   :devtools {:preloads [devtools.preload]
+              :use-document-host false
+              :repl-pprint true
+              :watch-dir "dist"}
+   :dev {}
+   :release {:compiler-options {:optimizations :advanced}}}}}
